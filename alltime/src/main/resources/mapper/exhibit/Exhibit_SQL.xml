@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="exhibit">
+
+	<!-- select  -->
+	<select id="total" parameterType="hashmap" resultType="hashmap">
+		SELECT count(*) total
+		FROM `alltime`.`exhibition`;
+	</select>
+	<select id="exhibitList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[ 
+			SELECT
+			    *
+			FROM
+			   `alltime`.`exhibition`
+			ORDER BY id desc
+			limit ${page}, ${numOfPage};
+		]]>
+	</select>
+	<select id="exhibitSearch" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[ 
+			SELECT
+			    *
+			FROM
+			   `alltime`.`exhibition`
+			where title like '%${keyword}%'
+			ORDER BY end_date ASC
+			limit ${page}, ${numOfPage};
+		]]>
+	</select>
+	<select id="selectExhibitDetail" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+				SELECT
+				    *
+				FROM
+				   	exhibition
+				WHERE 
+					id = #{id}
+			]]>
+	</select>  
+	<select id="reviewList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+				SELECT
+				    *
+				FROM
+				   	review_table
+				WHERE 
+					id = #{id}
+				ORDER BY review_no DESC
+				limit ${page}, ${numOfPage};
+			]]>
+	</select> 
+	
+	<!-- insert -->
+	<insert id="insertExhibit" parameterType="hashmap">
+		<![CDATA[
+		INSERT INTO `alltime`.`exhibition` (`title`, `descript`, `image`, `price`, `start_date`, `end_date`,`available`) 
+		VALUES(#{title}, #{descript}, #{STORED_FILE_PATH}, #{price}, #{start_date}, #{end_date},#{available});
+			
+		]]>
+	</insert>
+	
+	<insert id="reviewInsert" parameterType="hashmap">
+		<![CDATA[
+		INSERT INTO `alltime`.`review_table` (`writer`, `id`, `content`) 
+		VALUES (#{writer}, #{id},#{content});
+
+			
+		]]>
+	</insert>
+	
+	<!-- update -->
+	<update id="updateHITCNT" parameterType="hashmap">
+		UPDATE `alltime`.`exhibition` SET 
+		`HIT_CNT` = COALESCE(HIT_CNT, 0) + 1 
+		WHERE id = #{id} 
+	</update>
+	
+	<update id="updateExhibit" parameterType="hashmap">
+		UPDATE `alltime`.`exhibition` SET 
+		`title` = #{title}, 
+		`descript` = #{descript}, 
+		`price` = #{price}, 
+		`start_date` = #{start_date}, 
+		`end_date` = #{end_date},
+		`available` = #{available},
+		`image` = #{STORED_FILE_PATH} 
+		WHERE (`id` = #{id}); 
+	</update>
+	
+	<!-- delete -->
+	<delete id="deleteExhibit"  parameterType="hashmap">
+		DELETE FROM `alltime`.`exhibition` WHERE (`id` = #{id});
+	</delete>
+</mapper>

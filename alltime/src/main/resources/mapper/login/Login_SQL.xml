@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="login">
+	
+	<select id="login" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+			    *
+			FROM
+			   	user_table
+			WHERE login_id = #{login_id} 
+		]]>
+	</select>
+	 
+	<insert id="signup" parameterType="hashmap">
+		<![CDATA[
+		INSERT INTO `alltime`.`user_table` (`login_id`, `login_pw`, `tel`, `name`) 
+		VALUES (#{login_id},#{login_pw},#{tel},#{name});  
+		]]>
+	</insert>
+	 
+</mapper>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         

@@ -1,0 +1,117 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+ 
+  </head>
+  <style>
+  	.search-whole{
+  		float:left;
+  	}
+  
+  </style>
+  <body>
+    <header>
+  <div class="collapse fixed-top .gr_bg" id="navbarHeader" style="margin-top:3.5em;
+  																  background: rgb(255,255,255,0.8); ">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 col-md-7 py-4">
+          <h4 class="">About</h4>
+          <p class="">한눈에 보는 전시간의 전시</p>
+        </div>
+        <div class="col-sm-4 offset-md-1 py-4">
+       <c:choose>
+          <c:when test="${user!=null}"> 
+          	<h4 class=""><strong>${user.name}</strong>님 환영합니다.</h4>
+          </c:when>
+          <c:otherwise>
+          	<h4 class="">Menu</h4>
+          </c:otherwise> 
+        </c:choose>
+          <ul class="list-unstyled">
+          
+          
+          <c:choose>
+	          <c:when test="${user!=null}"> 
+	            <li><a href="<c:url value='/logout.do'/>" class="text-black">Logout</a></li>
+      			<li><a href="#" class="text-black navbar-toggler"
+							  	data-toggle="collapse" 
+							  	data-target="#sub-menu" 
+							  	aria-controls="sub-menu" 
+							  	aria-expanded="false" 
+							  	aria-label="Toggle navigation"
+							  	style="font-size:1em;padding:0px;">My Page</a></li>
+      			<li> 
+      				<ul class="list-unstyled collapse" 
+      					id="sub-menu"
+      					style="padding-left:15px;">
+      					<li><a class="text-black" href="<c:url value='/infoEdit.do'/>">정보 수정</a></li>
+			  			<li><a class="text-black" href="<c:url value='/shoppingList.do'/>">예매내역</a></li> 
+      				</ul>
+      			</li>
+	            <c:if test="${user.admin eq true }"> 
+	            	<li><a href="<c:url value='/admin/userList.do'/>" class="text-black">회원 관리</a></li> 
+	            </c:if>
+	          </c:when>
+	          <c:otherwise>
+	            <li><a href="<c:url value='/loginForm.do'/>" class="text-black">Sign in</a></li>
+	          </c:otherwise> 
+          </c:choose>
+          </ul>
+        </div>
+      </div>
+    </div> 
+  </div>
+  <div class="navbar navbar-light fixed-top shadow-sm gr_bg">
+    <div class="container d-flex justify-content-between">
+      <div class=" d-flex align-items-center">
+      
+	   &nbsp; &nbsp; &nbsp;
+       <a href="<c:url value='/exhibitList.do'/>" class="navbar-brand"> 
+	       <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-easel" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+		  	<path d="M8.473.337a.5.5 0 0 0-.946 0L6.954 2h2.092L8.473.337zM12.15 11h-1.058l1.435 4.163a.5.5 0 0 0 .946-.326L12.15 11zM8.5 11h-1v2.5a.5.5 0 0 0 1 0V11zm-3.592 0H3.85l-1.323 3.837a.5.5 0 1 0 .946.326L4.908 11z"/>
+		  	<path fill-rule="evenodd" d="M14 3H2v7h12V3zM2 2a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
+		   </svg>
+        <strong>전시간 All-Time</strong>
+        </a>
+        
+       <div id="search-whole" class="row" style="">
+	      <form id="searchForm" method="post" class="col">
+		   	  <input type="text" placeholder="검색어를 입력하세요" name="keyword" id="keyword" style="border:0px;
+		   	  														padding:5px;
+		   	  														border-bottom:1px solid #555;
+		   	  														display:none;
+		   	  														background:rgba(255,255,255,0);
+		   	  														 "/>
+	      
+	      </form>
+	      <div class="col"> 
+	   	  	<i class="fas fa-search" style="margin-top:10px;"></i>
+	      </div>
+   	  </div>
+      </div>
+      
+   	  														
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </div>
+  <script>
+  	$(document).ready(function(){
+  		$(".fa-search").on("click",function(){
+  			if($("#keyword").css("display") == "none"){
+  				$("#keyword").show();
+  			}else{
+  				var keyword = $("#keyword").val();
+  				if(keyword == ""){
+  					alert("검색어를 입력하세요");
+  					return;
+  				}
+  				$("#searchForm").attr("action","<c:url value='/exhibitList.do'/>");
+  				$("#searchForm").submit();
+  				$("#keyword").hide();
+  			}	
+  		});
+  	});
+  </script>
+</header> 

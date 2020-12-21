@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user"> 
+	<select id="total" parameterType="hashmap" resultType="hashmap">
+		SELECT count(*) total
+		FROM `alltime`.`user_table`;
+	</select>
+	<select id="userList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+			    *
+			FROM
+			   	user_table 
+			limit ${page}, ${numOfPage};
+		]]>
+	</select>
+	<select id="user" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+				SELECT
+				    *
+				FROM
+				   	user_table 
+				WHERE 
+					login_id = #{login_id}
+			]]>
+	</select>
+	<update id="userUpdate" parameterType="hashmap">
+		UPDATE `alltime`.`user_table` SET 
+		`login_id` = #{login_id}, 
+		`login_pw` = #{login_pw}, 
+		`admin` = #{admin}, 
+		`tel` = #{tel}, 
+		`name` = #{name}
+		WHERE (`login_id` = #{login_id}); 
+	</update>
+	
+	<delete id="userDelete"  parameterType="hashmap">
+		DELETE FROM `alltime`.`user_table` WHERE (`login_id` = #{login_id});
+	</delete>
+</mapper>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
