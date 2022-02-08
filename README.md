@@ -2,7 +2,7 @@
 internet programming final project
 # 1. 프로젝트 기획 
 프로젝트 이름 : 전시간 ALL TIME  
-프로젝트 목적 : 한눈에 보는 전시간의 전시. 관람 가능한 전시회들을 확인하고 예매하거나 후기를 남길 수 있는 사이트   
+프로젝트 목적 : 한눈에 보는 전 시간의 전시. 관람 가능한 전시회들을 확인하고 예매하거나 후기를 남길 수 있는 사이트   
 개발 언어 : HTML, CSS, JAVASCRIPT, JQUERY, MYSQL, SPRING, JAVA, JSP, MYBATIS  
 
 # 2. 제공 기능
